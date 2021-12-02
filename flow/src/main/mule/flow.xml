@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e221e4c0-2545-40e6-8b6b-e44abaf219e1" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="flowFlow" doc:id="0ce817a7-dd59-4642-8d67-93b4ff35cd2d" >
+		<http:listener doc:name="Listener" doc:id="77c4ee11-dfe5-449c-b186-11cdf3e2d496" config-ref="HTTP_Listener_config" path="/demo" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f5939e27-f2ec-454e-b0f6-b8a3b4658c86" message="demo practice has been invoked"/>
+	</flow>
+</mule>
