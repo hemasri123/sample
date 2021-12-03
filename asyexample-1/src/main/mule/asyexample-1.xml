@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:netsuite="http://www.mulesoft.org/schema/mule/netsuite" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/netsuite http://www.mulesoft.org/schema/mule/netsuite/current/mule-netsuite.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="81b8e4fa-dabf-4efe-bed7-91889f1c8ecb" >
+		<http:listener-connection host="localhost" port="1000" />
+	</http:listener-config>
+	<flow name="asyexample-1Flow1" doc:id="950b102e-eb22-431b-b749-125808758120" >
+		<http:listener doc:name="Listener" doc:id="9f87fdf2-189f-4c3b-bba8-09f4c3fd879c" config-ref="HTTP_Listener_config" path="/Ansynchorize" />
+		<logger level="INFO" doc:name="Logger" doc:id="81217e49-6845-433a-99d2-0e9ba581f872" message="one"/>
+		<async doc:name="Async" doc:id="bbde38d8-8453-44e3-9b5d-d2d4638b215c" >
+			<logger level="INFO" doc:name="Logger" doc:id="f2f9e137-f600-45ce-8768-be844c558e0f" message="two" />
+			<logger level="INFO" doc:name="Logger" doc:id="56b11ac2-dbbc-4730-b941-6002622c2273" message="three" />
+			<logger level="INFO" doc:name="Logger" doc:id="6427b1a8-6ade-4212-a041-94a607bad935" message="four" />
+		</async>
+		<logger level="INFO" doc:name="Logger" doc:id="355c9594-3652-45e0-a739-45c61b60a85a" message="five"/>
+		<logger level="INFO" doc:name="Logger" doc:id="5495b0a2-b836-47a4-970b-80fdb15d6da7" message="six"/>
+	</flow>
+</mule>
