@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="dba3111e-42e1-473a-bd14-012253e9b046" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="e2d917a0-d8f8-4686-aaa2-9b9a5148c40d" >
+		<email:smtp-connection host="smpt.gmail.com" port="587" user="luckyhemasree@gmail.com" password="Hemasekhar@12" >
+			<email:properties >
+				<email:property key="mail.smtp.starts.enable" value="true" />
+			</email:properties>
+		</email:smtp-connection>
+	</email:smtp-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="02ebd231-1d70-47d1-87b1-2ac8368df164" />
+	<flow name="smtpFlow" doc:id="6e691d41-ba3a-4924-a677-19a394a24be7" >
+		<http:listener doc:name="Listener" doc:id="17606425-b798-468e-a33c-a8bb5bbc9e1b" config-ref="HTTP_Listener_config" path="/Gmail" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8539bc42-58e6-4ccc-b02b-ecca491886cc" message="#[payload]"/>
+		<file:read doc:id="dd5bd05c-91ba-4e73-aa88-609282f88a8f" config-ref="File_Config" path="C:\Users\Partha\Desktop\Hema\Mule Soft Document\Files\Read file sample-1.rtf"/>
+		<email:send doc:name="Send" doc:id="df906f8b-8e0b-45ce-a5c0-4fef8fccbb51" config-ref="Email_SMTP" fromAddress="luckyhemasree@gmail.com" subject="Hemasri">
+			<email:to-addresses >
+				<email:to-address value="zincsekhar@gmail.com" />
+			</email:to-addresses>
+			<email:body >
+				<email:content ><![CDATA[I am learning Mule soft]]></email:content>
+			</email:body>
+			<email:attachments ><![CDATA[#[{
+	"attachements.txt" : payload
+}]]]></email:attachments>
+		</email:send>
+	</flow>
+</mule>
